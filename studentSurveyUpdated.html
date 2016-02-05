@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui.css">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+		<script type="text/javascript" src="scripts/studentSurvey.js" ></script>
+		<script type="text/javascript" src="scripts/jquery.js"></script>
+		<script type="text/javascript" src="scripts/jquery-ui.js"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function() {
+				saveNameCookie(true);
+			});
+		</script>
+		
+		<title>Student Feedback - Campus</title>
+	</head>
+
+	<body onload = "return saveNameCookie()">
+		<header>
+			<h1>DEPARTMENT OF COMPUTER SCIENCE</h1>
+			
+			<!-- <nav>
+				<ul>
+					<li><a href="csDeptInfo.html" >Home</a></li>
+					<li><a href="" class="current" >Student Survey Page</a></li>
+					<li><a href="index.html" >Welcome Page</a></li>
+				</ul>
+			</nav> -->
+		</header>
+		
+		<div id="body_wrapper_new" style="text-align: left; height: 100%" >
+			<div id="greetings" class="greetingMessage" hidden="true"></div>
+			<div id="warningMessage" class="warningMessage" >Please enter your name or click OK. Click <a href="javascript: wrongPerson();" style="color: #00000;">here</a> to reload.</div>
+			<div id="errorMessage" class="errorMessage" hidden="true" >Please rectify the errors below, provided with the error messages.</div>
+			
+			<h2 style="color: #008000; font-size: 20px;">Student Survey Form</h2>
+			
+			<p style="font-size: 15px;">Please fill this form to provide feedback about the campus visit:</p>
+			
+			<form id="studentSurveyForm" method="post" action="" autocomplete="on" 
+				style="font-family:arial,helvetica,sans-serif; font-size:12px; line-height:16px; font-style:normal;">
+				<table id="studentSurveyTable" summary="This table is to take information from the students about their campus visit" >
+					<tbody>
+						<tr>
+							<td style="border-top: 5px solid rgb(150, 139, 139); padding-top: 15px;">
+								<label>Last Name</label>
+							</td>
+							<td style="border-top: 5px solid rgb(150, 139, 139); padding-top: 15px;">
+								<label>First Name</label>
+							</td>
+							<td style="border-top: 5px solid rgb(150, 139, 139); padding-top: 15px;">
+								<label>Middle Name</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" id="lastName" name="lastName" maxlength="50" required="required" 
+									placeholder="e.g. Coutinho" autofocus="autofocus" />
+							</td>
+							<td>
+								<input type="text" id="firstName" name="firstName" maxlength="50" required="required" placeholder="e.g. Derick" />
+							</td>
+							<td>
+								<input type="text" id="middleName" name="middleName" maxlength="50" required="required" placeholder="e.g. Augustine" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div id="lastNameErrorDiv" class="error" ></div>
+							</td>
+							<td>
+								<div id="firstNameErrorDiv" class="error" ></div>
+							</td>
+							<td>
+								<div id="middleNameErrorDiv" class="error" ></div>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>
+								<label>Street Address</label>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<input type="text" id="streetAddr" name="streetAddr" maxlength="100" size="47" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<div id="streetAddrError" class="error"></div>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>
+								<label>ZipCode</label>
+							</td>
+							<td>
+								<label>City</label>
+							</td>
+							<td>
+								<label>State</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" id="zipCode" name="zipCode" maxlength="5" placeholder="#####" 
+									onkeyup="populateStateCity()" onblur="populateStateCity()" />
+							</td>
+							<td>
+								<!-- <input type="text" id="city" name="city" maxlength="35" /> -->
+								<div id="cityDiv" ></div>
+							</td>
+							<td>
+								<!-- <input type="text" id="state" name="state" maxlength="35" /> -->
+								<div id="stateDiv"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div id="zipError" hidden="true">Processing....</div>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>
+								<label>Telephone Number</label>
+							</td>
+							<td>
+								<label>Email Address</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="tel" id="telNum" name="telNum" placeholder="(###) ###-####" pattern="\(\d{3}\) +\d{3}-\d{4}" />
+							</td>
+							<td>
+								<input type="email" id="emailAddr" name="emailAddr" maxlength="100" placeholder="username@domain.com" required="required" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								
+							</td>
+							<td>
+								<div id="emailAddrError" class="error"></div>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>
+								<label>Graduation Month</label>
+							</td>
+							<td>
+								<label>Graduation Year</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" id="gradMonth" name="gradMonth" placeholder="Select a month" list="months" />
+								<datalist id="months">
+									<option value="January">
+									<option value="February">
+									<option value="March">
+									<option value="April">
+									<option value="May">
+									<option value="June">
+									<option value="July">
+									<option value="August">
+									<option value="September">
+									<option value="October">
+									<option value="November">
+									<option value="December">
+								</datalist>
+							</td>
+							<td>
+								<input type="text" id="gradYear" name="gradYear" />
+							</td>
+						</tr>
+						
+						<tr>
+							<td colspan="2">
+								<label>URL</label>
+							</td>
+							<td>
+								<label>Date of Survey</label>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<input type="url" id="url" name="url" size="47" placeholder="http://www.domainname.com" />
+							</td>
+							<td>
+								<input type="date" id="dateOfSurvey" name="dateOfSurvey" />
+							</td>
+						</tr>
+						
+						<tr>
+							<td colspan="5" style="border-top: 5px solid rgb(150, 139, 139); padding-top: 15px;">
+								<label>Will you recommend GMU to others?</label>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="5">
+								<select name="recommend">
+									<option selected="selected">Select one</option>
+									<option>Very likely</option>
+									<option>Likely</option>
+									<option>Unlikely</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="5" >
+								<label>Please check the things that you like about the campus</label>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="5">
+								<div id="likieCheckBox">
+									<input type="checkbox" id="students" name="likings" >Students
+									<input type="checkbox" id="location" name="likings" >Location
+									<input type="checkbox" id="campus" name="likings" >Campus
+									<input type="checkbox" id="atmoshpere" name="likings" >Atmosphere
+									<input type="checkbox" id="dormRooms" name="likings">Dorm Rooms
+									<input type="checkbox" id="sports" name="likings" >Sports
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="5">
+								<div id="likeCheckboxError" class="error"></div>
+							</td>
+						</tr>
+						
+						<tr>
+							<td colspan="5">
+								<label>How did you become interested in George Mason University?</label>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="5">
+								<div id="interestRadio">
+									<input type="radio" id="friends" name="interest" >Friends
+									<input type="radio" id="television" name="interest" >Television
+									<input type="radio" id="internet" name="interest" >Internet
+									<input type="radio" id="other" name="interest" >Other
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="5">
+								<div id="interestRadioError" class="error"></div>
+							</td>
+						</tr>
+						
+						<tr>
+							<td colspan="5" style="border-top: 5px solid rgb(150, 139, 139); padding-top: 15px;">
+								<label>Data</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" id="dataField" name="dataField" onblur="calculateData()" />
+							</td>
+							<td colspan="2">
+								<div id="dataError" hidden="true" style="color: red"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label>Average:</label> <p id="avgData" />
+							</td>
+							<td>
+								<label>Maximum:</label> <p id="maxData" />
+							</td>
+						</tr>
+						
+						<tr>
+							<td colspan="5" style="border-top: 5px solid rgb(150, 139, 139); padding-top: 15px;">
+								<label>Additional Comments</label>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="5">
+								<textarea rows="5" cols="50" placeholder="Enter your comments here (if any)"></textarea>
+							</td>
+						</tr>
+						
+						<tr>
+							<td colspan="5" style="border-top: 5px solid rgb(150, 139, 139); padding-top: 15px; text-align: center;">
+								<input type="reset" id="resetBtn" name="resetBtn" value="RESET" onclick="clearAllErrors()">
+								<input type="submit" id="submitBtn" name="submitBtn" value="SUBMIT" onclick="return submitSaveInfo()">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+			
+			<div id="bottom1" style="top: 555px; right: 90px; position: fixed;">
+				<a href="http://www.gmu.edu/" target="_blank" >
+					<img src="images/GMU.jpg" alt="GMU logo" style="height: 100px; width: 100px; float: right;" title="Please visit http://www.gmu.edu for more information.">
+				</a>
+			</div>
+		</div>
+		
+		<div id="footer" style="text-align: center;" >
+			<strong>&copy; 2014 Derick Augustine Coutinho</strong>
+		</div>
+	</body>
+</html>

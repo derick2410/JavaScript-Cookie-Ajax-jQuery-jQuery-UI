@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui.css">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+  		<script type="text/javascript" src="scripts/jquery.js"></script>
+ 		<script type="text/javascript" src="scripts/jquery-ui.js"></script>
+ 		<script type="text/javascript" src="scripts/studentSurvey.js" ></script>
+ 		
+ 		<script>
+			$(function() {
+		    	$("#main-tabbed-panel-div").tabs();
+		    	
+		    	$("#ui-id-4").click(function () {
+		    		$("#main-tabbed-panel-div").tabs({ active: -1});
+		    		//saveNameCookie();
+		    	})
+		    });
+		</script>
+		
+		<title>SWE642 Application</title>
+	</head>
+
+	<body >
+		<div id="main-tabbed-panel-div">
+			<ul>
+				<li><a href="#trans_section">Assignment #1</a></li>
+				<li><a href="csDeptInfo.html">Assignment #2</a></li>
+				<li><a href="studentSurveyUpdated.html">Assignment #3</a></li>
+			</ul>
+			
+			<div id="trans_section">
+				<h1 id="sweDiv">SWE642</h1>
+				<strong>WELCOME TO THE HOME PAGE OF SWE 642 ASSIGNMENT</strong>
+			</div>
+		</div>
+	</body>
+</html>
